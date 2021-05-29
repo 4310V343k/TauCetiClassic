@@ -57,7 +57,21 @@ First and foremost, change your directory to `tgui`.
 Run `bin/tgui --install-git-hooks` (optional) to install merge drivers
 which will assist you in conflict resolution when rebasing your branches.
 
-Run one of the following:
+Run `bin/tgui` with any of the options listed below.
+
+**For everyone else:**
+
+If you haven't opened the console already, you can do that by holding
+Shift and right clicking on the `tgui` folder, then pressing
+either `Open command window here` or `Open PowerShell window here`.
+
+Run `.\bin\tgui.bat` with any of the options listed below.
+
+> If using PowerShell, you will receive errors if trying to run
+> `.\bin\tgui.ps1`, because default Windows policy does not allow direct
+> execution of PS1 scripts. Run `.\bin\tgui.bat` instead.
+
+**Available commands:**
 
 - `bin/tgui` - build the project in production mode.
 - `bin/tgui --dev` - launch a development server.
@@ -80,31 +94,6 @@ doing development on IE8).
 - `bin/tgui --clean` - clean up project repo.
 - `bin/tgui [webpack options]` - build the project with custom webpack
 options.
-
-**For everyone else:**
-
-If you haven't opened the console already, you can do that by holding
-Shift and right clicking on the `tgui` folder, then pressing
-either `Open command window here` or `Open PowerShell window here`.
-
-Run `yarn install` to install npm dependencies, then one of the following:
-
-- `yarn run build` - build the project in production mode.
-- `yarn run watch` - launch a development server.
-- `yarn run lint` - show problems with the code.
-- `yarn run lint --fix` - auto-fix problems with the code.
-- `yarn run analyze` - run a bundle analyzer.
-
-We also got some batch files in store, for those who don't like fiddling
-with the console:
-
-- `bin/tgui-build.bat` - build the project in production mode.
-- `bin/tgui-dev-server.bat` - launch a development server.
-
-> Remember to always run a full build before submitting a PR. It creates
-> a compressed javascript bundle which is then referenced from DM code.
-> We prefer to keep it version controlled, so that people could build the
-> game just by using Dream Maker.
 
 ## Troubleshooting
 

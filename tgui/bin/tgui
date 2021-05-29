@@ -49,7 +49,7 @@ task-dev-server() {
 }
 
 ## Run a linter through all packages
-task-eslint() {
+task-lint() {
   cd "${base_dir}"
   eslint ./packages "${@}"
   echo "tgui: eslint check passed"
@@ -58,22 +58,23 @@ task-eslint() {
 ## Mr. Proper
 task-clean() {
   cd "${base_dir}"
-  rm -rf packages/tgui/public/.tmp
+  ## Build artifacts
+  rm -rf public/.tmp
+  rm -f public/*.map
+  rm -f public/*.chunk.*
+  rm -f public/*.bundle.*
+  rm -f public/*.hot-update.*
+  ## Yarn artifacts
+  rm -rf .yarn/cache
+  rm -rf .yarn/unplugged
+  rm -rf .yarn/webpack
+  rm -f .yarn/build-state.yml
+  rm -f .yarn/install-state.gz
+  rm -f .yarn/install-target
+  rm -f .pnp.js
+  ## NPM artifacts
   rm -rf **/node_modules
   rm -f **/package-lock.json
-}
-
-## Validates current build against the build stored in git
-task-validate-build() {
-  cd "${base_dir}"
-  local diff
-  diff="$(git diff packages/tgui/public/tgui.bundle.*)"
-  if [[ -n ${diff} ]]; then
-    echo "Error: our build differs from the build committed into git."
-    echo "Please rebuild tgui."
-    exit 1
-  fi
-  echo "tgui: build is ok"
 }
 
 ## Installs merge drivers and git hooks
@@ -118,16 +119,6 @@ if [[ ${1} == "--install-git-hooks" ]]; then
   exit 0
 fi
 
-## Continuous integration scenario
-if [[ ${1} == "--ci" ]]; then
-  task-clean
-  task-install
-  task-eslint
-  task-webpack --mode=production
-  task-validate-build
-  exit 0
-fi
-
 if [[ ${1} == "--clean" ]]; then
   task-clean
   exit 0
@@ -143,21 +134,21 @@ fi
 if [[ ${1} == '--lint' ]]; then
   shift 1
   task-install
-  task-eslint "${@}"
+  task-lint "${@}"
   exit 0
 fi
 
 if [[ ${1} == '--lint-harder' ]]; then
   shift 1
   task-install
-  task-eslint -c .eslintrc-harder.yml "${@}"
+  task-lint -c .eslintrc-harder.yml "${@}"
   exit 0
 fi
 
 if [[ ${1} == '--fix' ]]; then
   shift 1
   task-install
-  task-eslint --fix "${@}"
+  task-lint --fix "${@}"
   exit 0
 fi
 
@@ -169,9 +160,16 @@ if [[ ${1} == '--analyze' ]]; then
 fi
 
 ## Make a production webpack build
+if [[ ${1} == '--build' ]]; then
+  task-install
+  task-webpack --mode=production
+  exit 0
+fi
+
+## Make a production webpack build + Run eslint
 if [[ -z ${1} ]]; then
   task-install
-  task-eslint
+  task-lint
   task-webpack --mode=production
   exit 0
 fi

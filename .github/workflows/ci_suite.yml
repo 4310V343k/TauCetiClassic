@@ -40,8 +40,9 @@ jobs:
           NODE_VERSION: 12
         run: |
           chmod +x test/run-test.sh
+          bash scripts/install_node.sh
+          bash tgui/bin/tgui --lint
           bash test/run-test.sh
-          bash scripts/build_tgui.sh
   unit_tests:
     name: Unit Tests
     runs-on: ubuntu-16.04
@@ -69,7 +70,9 @@ jobs:
           source $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}/byond/bin/byondsetup
           chmod +x -R scripts/
           chmod +x test/run-test.sh
+          bash tgui/bin/tgui --build
           bash test/run-test.sh
+
   compile_everything:
     name: Compile Everything
     runs-on: ubuntu-16.04
@@ -88,4 +91,5 @@ jobs:
           source $HOME/BYOND-${BYOND_MAJOR}.${BYOND_MINOR}/byond/bin/byondsetup
           chmod +x -R scripts/
           chmod +x test/run-test.sh
+          bash tgui/bin/tgui --build
           bash test/run-test.sh

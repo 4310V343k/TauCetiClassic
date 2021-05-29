@@ -5,7 +5,6 @@
 *.dmb
 *.lk
 *.backup
-taucetistation.dmb
 Thumbs.db
 data/
 cfg/
