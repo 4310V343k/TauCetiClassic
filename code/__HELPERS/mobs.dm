@@ -86,7 +86,7 @@
 	target.in_use_action = TRUE
 
 	if(check_target_zone)
-		check_target_zone = user.get_targetzone()
+		check_target_zone = BP_HEAD
 
 	var/user_loc = user.loc
 
