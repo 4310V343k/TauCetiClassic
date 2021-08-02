@@ -210,7 +210,7 @@ var/emojiJson = file2text("code/modules/goonchat/browserassets/js/emojiList.json
 	// This check will check for an icon object that already has a cool key.
 	if (istype(obj, /icon))
 		var/icon/I = obj
-		if(!bicon_cache[I.icon_info])
+		if (!bicon_cache[I.icon_info]) // Doesn't exist yet, make it.
 			bicon_cache[I.icon_info] = icon2base64(obj)
 		return "[bicon_cache[I.icon_info]]"
 
