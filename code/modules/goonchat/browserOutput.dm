@@ -209,7 +209,7 @@ var/emojiJson = file2text("code/modules/goonchat/browserassets/js/emojiList.json
 
 	if (isicon(obj))
 		var/icon/I = obj
-		if(!bicon_cache[I.icon_info])
+		if (!bicon_cache[I.icon_info]) // Doesn't exist yet, make it.
 			bicon_cache[I.icon_info] = icon2base64(obj)
 		return "[bicon_cache[I.icon_info]]"
 
