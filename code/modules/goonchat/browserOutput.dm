@@ -179,7 +179,7 @@ var/emojiJson = file2text("code/modules/goonchat/browserassets/js/emojiList.json
 
 /icon/New(icon,icon_state,dir,frame,moving)
 	..()
-	// A link to ourselves, otherwise a file. A kind of guarantee.
+	// A link to yourself, otherwise a file. A kind of guarantee.
 	if(istype(icon, /icon))
 		icon_info = "\ref[src]#[icon_state]"
 	else
