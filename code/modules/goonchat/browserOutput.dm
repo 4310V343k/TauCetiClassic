@@ -207,11 +207,19 @@ var/emojiJson = file2text("code/modules/goonchat/browserassets/js/emojiList.json
 	if (!obj)
 		return
 
-	if (isicon(obj))
+	// This check will check for an icon object that already has a cool key.
+	if (istype(obj, /icon))
 		var/icon/I = obj
 		if(!bicon_cache[I.icon_info])
 			bicon_cache[I.icon_info] = icon2base64(obj)
 		return "[bicon_cache[I.icon_info]]"
+
+	// This check will check if you pass it to this proc 'foo/bar.dmi', or something from your computer in game
+	if(isicon(obj))
+		var/key = "\ref[obj]"
+		if(!bicon_cache[key])
+			bicon_cache[key] = icon2base64(obj)
+		return "[bicon_cache[key]]"
 
 	if (!isatom(obj)) // we don't need datums here. no runtimes :<
 		return
