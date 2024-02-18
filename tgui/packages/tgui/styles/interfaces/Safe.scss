@@ -23,28 +23,12 @@
   margin-top: -20px;
 }
 
-.Safe__dialer {
-  margin-bottom: 1.25rem;
-  .Button {
-    width: 80px;
-  }
-}
-
-.Safe__dialer-right {
-  .Button {
-    i {
-      z-index: -100;
-    }
-  }
-}
-
 .Safe__dialer-number {
   color: #bbbbbb;
   display: inline;
   background-color: #191f2a;
   font-size: 1.5rem;
   font-weight: bold;
-  padding: 0 0.5rem;
 }
 
 .Safe__contents {

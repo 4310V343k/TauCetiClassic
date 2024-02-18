@@ -1,7 +1,7 @@
 import { Fragment } from 'inferno';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, Icon, Section } from '../components';
+import { Box, Button, Icon, Section, Table } from '../components';
 import { Window } from "../layouts";
 
 export const Safe = (properties, context) => {
@@ -64,7 +64,7 @@ const Dialer = (properties, context) => {
       <Button
         disabled={open || right && !locked}
         icon={"arrow-" + (right ? "right" : "left")}
-        content={(right ? "Right" : "Left") + " " + amount}
+        content={amount}
         iconPosition={right ? "right" : "left"}
         onClick={() => act(!right ? "turnright" : "turnleft", {
           num: amount,
@@ -73,26 +73,31 @@ const Dialer = (properties, context) => {
     );
   };
   return (
-    <Box className="Safe__dialer">
-      <Button
-        disabled={locked}
-        icon={open ? "lock" : "lock-open"}
-        content={open ? "Close" : "Open"}
-        mb="0.5rem"
-        onClick={() => act('open')}
-      /><br />
-      <Box position="absolute">
-        {[dialButton(50), dialButton(10), dialButton(1)]}
-      </Box>
-      <Box
-        className="Safe__dialer-right"
-        position="absolute" right="5px">
-        {[dialButton(1, true), dialButton(10, true), dialButton(50, true)]}
-      </Box>
-      <Box className="Safe__dialer-number">
-        {dial}
-      </Box>
-    </Box>
+    <Table>
+      <Table.Row>
+        <Table.Cell header textAlign="center" width="200px">Налево</Table.Cell>
+        <Table.Cell header textAlign="center">
+          <Button
+            disabled={locked}
+            icon={open ? "lock" : "lock-open"}
+            content={open ? "Закрыть" : "Открыть"}
+            onClick={() => act('open')}
+          />
+        </Table.Cell>
+        <Table.Cell header textAlign="center" width="200px">Направо</Table.Cell>
+      </Table.Row>
+      <Table.Row>
+        <Table.Cell textAlign="center">
+          {[dialButton(50), dialButton(10), dialButton(1)]}
+        </Table.Cell>
+        <Table.Cell className="Safe__dialer-number">
+            {dial}
+        </Table.Cell>
+        <Table.Cell textAlign="center">
+          {[dialButton(1, true), dialButton(10, true), dialButton(50, true)]}
+        </Table.Cell>
+      </Table.Row>
+    </Table>
   );
 };
 
