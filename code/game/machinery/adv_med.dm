@@ -476,7 +476,7 @@
 	if(!connected || !connected.occupant || !hasHUD(usr, "medical"))
 		return
 	
-	new /datum/body_scanconsole_tguidataholder/(usr, tgui_data())
+	new /datum/body_scanconsole_tguidataholder(usr, tgui_data())
 
 /datum/body_scanconsole_tguidataholder
 	var/list/saved_tgui_data
